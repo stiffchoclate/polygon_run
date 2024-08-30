@@ -29,22 +29,46 @@ def blitting_2d():
     screen = pygame.display.set_mode(size = (500,500))
     clock = pygame.time.Clock()
     running = True
+    playerpos = (screen.get_width() / 2, screen.get_height() / 2)
 
     while running:
+        pygame.draw.rect(
+            surface = screen,
+            rect = (playerpos, (200, 200)),
+            color="red",
+        )
 
+        pygame.draw.circle(
+            surface = screen, 
+            color = "blue",
+            center = playerpos,
+            radius = 200
+        )
+
+        pygame.display.flip()
+        #running = False
+        clock.tick(60)
+
+        keys = pygame.key.get_pressed()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            if event.type == pygame.KEYDOWN:
+                if keys[pygame.K_w]:
+                    print("move upwards")
+                elif keys[pygame.K_d]:
+                    print("move right")
+                elif keys[pygame.K_a]:
+                    print("move left")
+                elif keys[pygame.K_s]:
+                    print("move down")
         
-        pygame.draw.rect(
-            surface = screen,
-            color = "orange",
-            rect = (0,0, 200, 200)
-        )
-        pygame.display.flip()
-        clock.tick(60)
+        pygame.event.pump()
 
-    time.sleep(2)
+            
+    screen.fill("purple")
+    pygame.display.flip()
+    time.sleep(1)
     pygame.quit()
 
 blitting_2d()
