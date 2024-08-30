@@ -39,7 +39,8 @@ def blitting_2d():
         pygame.draw.rect(
             surface = screen,
             color = "orange",
-            rect = (0,0, 200, 200) )
+            rect = (0,0, 200, 200)
+        )
         pygame.display.flip()
         clock.tick(60)
 
