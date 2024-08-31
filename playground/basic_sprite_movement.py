@@ -49,21 +49,20 @@ def blitting_2d():
         #running = False
         clock.tick(60)
 
-        keys = pygame.key.get_pressed()
         for event in pygame.event.get():
+            keys = pygame.key.get_pressed()
             if event.type == pygame.QUIT:
                 running = False
             if event.type == pygame.KEYDOWN:
-                if keys[pygame.K_w]:
+                if keys[pygame.K_w] | keys[pygame.K_UP]:
                     print("move upwards")
-                elif keys[pygame.K_d]:
+                if keys[pygame.K_d] | keys[pygame.K_RIGHT]:
                     print("move right")
-                elif keys[pygame.K_a]:
+                if keys[pygame.K_a] | keys[pygame.K_LEFT]:
                     print("move left")
-                elif keys[pygame.K_s]:
+                if keys[pygame.K_s] | keys[pygame.K_DOWN]:
                     print("move down")
-        
-        pygame.event.pump()
+            pygame.display.flip()
 
             
     screen.fill("purple")
