@@ -1,5 +1,6 @@
 import pygame
 import time
+import shapes
 
 #Understanding how blitting actually works
 def concept_blitting():
@@ -24,21 +25,18 @@ def concept_blitting():
     playerpos = playerpos -1
     print(screen)
 
-def blitting_2d():
+def blitting_manual():
     pygame.init()
     screen = pygame.display.set_mode(size = (500,500))
     clock = pygame.time.Clock()
     running = True
     playerpos = [screen.get_width() / 2, screen.get_height() / 2]
 
+    #GAME LOOP
     while running:
         screen.fill("black")
-        pygame.draw.rect(
-            surface = screen, rect = (playerpos, (100, 100)),color="red",
-        )
-        pygame.draw.circle(
-            surface = screen, color = "blue", center = playerpos, radius = 100
-        )
+        pygame.draw.rect(surface = screen, rect = (playerpos, (100, 100)),color="red",)
+        pygame.draw.circle(surface = screen, color = "blue", center = playerpos, radius = 100)
         pygame.display.flip()
         #running = False
         
@@ -47,25 +45,71 @@ def blitting_2d():
             keys = pygame.key.get_pressed()
             if event.type == pygame.QUIT:
                 running = False
-            while event.type == pygame.KEYDOWN:
+            if event.type == pygame.KEYDOWN:
                 if keys[pygame.K_w] | keys[pygame.K_UP]:
                     print("move upwards")
-                    playerpos[1]=playerpos[1]+5
+                    playerpos[1]=playerpos[1]-5
+
                 if keys[pygame.K_d] | keys[pygame.K_RIGHT]:
                     print("move right")
                     playerpos[0]=playerpos[0]+5
+
                 if keys[pygame.K_a] | keys[pygame.K_LEFT]:
                     print("move left")
                     playerpos[0]=playerpos[0]-5
+
                 if keys[pygame.K_s] | keys[pygame.K_DOWN]:
                     print("move down")
-                    playerpos[1]=playerpos[1]-5
+                    playerpos[1]=playerpos[1]+5
             #pygame.display.flip()
         clock.tick(60)
-            
+
+    #QUIT GAME        
     screen.fill("purple")
     pygame.display.flip()
     time.sleep(1)
     pygame.quit()
 
-blitting_2d()
+def pygame_blitting():
+    pygame.init()
+    clock = pygame.time.Clock()
+    screen = pygame.display.set_mode(size = (500,500))
+    playerpos = [screen.get_width() / 2, screen.get_height() / 2]
+    rect = pygame.draw.rect(surface = screen, rect = (playerpos, (100, 100)),color="red",)
+    circ = pygame.draw.circle(surface = screen, color = "blue", center = playerpos, radius = 100)
+    running = True
+
+    while running:
+        screen.blit(circ, playerpos)
+        screen.blit(rect, playerpos)
+
+        pygame.display.flip()
+        for event in pygame.event.get():
+            keys = pygame.key.get_pressed()
+            if event.type == pygame.QUIT:
+                running = False
+            if event.type == pygame.KEYDOWN:
+                if keys[pygame.K_w] | keys[pygame.K_UP]:
+                    print("move upwards")
+                    playerpos[1]=playerpos[1]-5
+
+                if keys[pygame.K_d] | keys[pygame.K_RIGHT]:
+                    print("move right")
+                    playerpos[0]=playerpos[0]+5
+
+                if keys[pygame.K_a] | keys[pygame.K_LEFT]:
+                    print("move left")
+                    playerpos[0]=playerpos[0]-5
+
+                if keys[pygame.K_s] | keys[pygame.K_DOWN]:
+                    print("move down")
+                    playerpos[1]=playerpos[1]+5
+            #pygame.display.flip()
+        
+        clock.tick(60)
+
+
+    pygame.quit()
+
+#blitting_manual()
+pygame_blitting()
